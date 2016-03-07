@@ -1,5 +1,6 @@
 require 'nmap/os_class'
 require 'nmap/os_match'
+require 'nmap/os_port_used'
 
 module Nmap
   #

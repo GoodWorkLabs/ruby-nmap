@@ -25,7 +25,7 @@ module Nmap
     #
     def type
       @type ||= if @node['type']
-                  @node['type'].to_sym
+                  @node['type']
                 end
     end
 
@@ -41,20 +41,20 @@ module Nmap
     #
     # The OS family.
     #
-    # @return [Symbol, nil]
+    # @return [String, nil]
     #
     def family
-      @family ||= @node.get_attribute('osfamily').to_sym
+      @family ||= @node.get_attribute('osfamily')
     end
 
     #
     # The OS generation.
     #
-    # @return [Symbol, nil]
+    # @return [String, nil]
     #
     def gen
       @gen ||= if @node['osgen']
-                 @node['osgen'].to_sym
+                 @node['osgen']
                end
     end
 

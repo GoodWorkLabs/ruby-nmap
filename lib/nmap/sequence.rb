@@ -39,11 +39,16 @@ module Nmap
     # @since 0.5.0
     #
     def values
+      # @values ||= if @node['values']
+      #               @node['values'].split(',').map { |value| value.to_i(16) }
+      #             else
+      #               []
+      #             end
       @values ||= if @node['values']
-                    @node['values'].split(',').map { |value| value.to_i(16) }
-                  else
-                    []
-                  end
+              @node['values'].split(',').map { |value| value }
+            else
+              []
+            end
     end
 
   end

@@ -96,10 +96,43 @@ module Nmap
     # @return [Array<Integer>]
     #   The ports used.
     #
-    def ports_used
-      @ports_used ||= @node.xpath("portused/@portid").map do |port|
-        port.inner_text.to_i
+    # def ports_used
+    #   @ports_used ||= @node.xpath("portused/@portid").map do |port|
+    #     port.inner_text.to_i
+    #   end
+    # end
+    
+    #
+    # Parses the Os Port Used information.
+    #
+    # @yield [class]
+    #   Passes each OS class to the given block.
+    #
+    # @yieldparam [OsPortUsed] class
+    #   The OS class information.
+    #
+    # @return [OS, Enumerator]
+    #   The OS information. If no block was given, an enumerator object
+    #   will be returned.
+    #
+    def each_ports_used
+      return enum_for(__method__) unless block_given?
+
+      @node.xpath("portused").each do |port_used|
+        yield OsPortUsed.new(port_used)
       end
+
+      return self
+    end
+
+    #
+    # Parses the ports used for guessing the OS.
+    #
+    # @return [Array<Integer>]
+    #   The ports used.
+    #
+    def ports_used
+      each_ports_used.to_a
     end
 
     #

@@ -2,7 +2,7 @@ module Nmap
   #
   # Represents a match for a specific {OS}.
   #
-  class OSMatch < Struct.new(:name, :accuracy)
+  class OSMatch < Struct.new(:name, :accuracy, :line)
 
     #
     # Converts the OS match to a String.

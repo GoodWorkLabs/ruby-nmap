@@ -263,11 +263,18 @@ module Nmap
     # @since 0.7.0
     #
     def uptime
-      @uptime ||= if (uptime = @node.at('uptime'))
-                    Uptime.new(
-                      uptime['seconds'].to_i,
-                      Time.parse(uptime['lastboot'])
-                    )
+        @uptime ||= if (uptime = @node.at('uptime'))
+                    if uptime['lastboot'] == ""
+                      Uptime.new(
+                        uptime['seconds'].to_i,
+                        uptime['lastboot']
+                      )
+                    else
+                      Uptime.new(
+                        uptime['seconds'].to_i,
+                        Time.parse(uptime['lastboot'])
+                      )
+                    end
                   end
 
       yield @uptime if (@uptime && block_given?)
